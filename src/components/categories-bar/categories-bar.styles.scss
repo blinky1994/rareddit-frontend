@@ -1,0 +1,24 @@
+.categories-bar-container {
+    display: flex;
+    padding: 1rem;
+    border: solid 1px #c4c4c4;
+    margin-bottom: 1rem;
+}
+
+.cb-left-section {
+    button {
+        font-size: 1rem;
+        margin-right: 1rem;
+        padding: 0.4rem 1rem;
+        background-color: rgb(132, 0, 255);
+        color: white;
+        border-style:none;
+        font-weight: bold;
+        transition-duration: 0.1s;
+
+        &:hover {
+            background-color: rgb(197, 136, 255);
+            cursor: pointer;
+        }
+    }
+}

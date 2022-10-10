@@ -1,0 +1,39 @@
+.create-post-container {
+    display: flex;
+    padding: 1rem;
+    border: solid 1px #c4c4c4;
+    margin-bottom: 1rem;
+}
+
+.cp-left-section {
+    width: 4rem;
+    margin: 0 auto;
+    img {
+        width: 2.4rem;
+    }
+}
+
+.cp-right-section {
+    width: 100%;
+    display: flex;    
+    justify-content: flex-start;
+    input {
+        width: 100%;
+        margin-right: 1rem;
+        font-size: 1rem;
+    }
+
+    button {
+        width: 8rem;
+        background-color: transparent;
+        font-size: 1rem;;
+        color: rgb(132, 0, 255);
+        border: solid 2px rgb(132, 0, 255);
+        font-weight: bold;
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgb(252, 248, 255);
+        }
+    }
+}
