@@ -5,8 +5,8 @@ import RouteBody from './routes/body/body.routes';
 function App() {
   return (
     <div className="App">
-      <NavBar />
-      <RouteBody />
+        <NavBar />
+        <RouteBody />
     </div>
   );
 }

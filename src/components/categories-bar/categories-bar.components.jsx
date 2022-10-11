@@ -4,10 +4,10 @@ const CategoriesBar = () => {
   return (
     <div className='categories-bar-container'>
         <div className='cb-left-section'>
+            <button>Best</button>
             <button>Hot</button>
-            <button>Popular</button>
-            <button>Button</button>
-            <button>Button</button>
+            <button>New</button>
+            <button>Top</button>
         </div>
         <div className='cb-right-section'>
 

@@ -1,0 +1,40 @@
+
+.button-post {
+    width: 8rem;
+    background-color: transparent;
+    font-size: 1rem;;
+    color: rgb(132, 0, 255);
+    border: solid 2px rgb(132, 0, 255);
+    font-weight: bold;
+    height: 2.5rem;
+    &:hover {
+        cursor: pointer;
+        background-color: rgb(252, 248, 255);
+    }
+}
+.button-category {
+
+}
+
+.button-postAction {
+    padding: 1.2rem 0.6rem;
+    display: flex; 
+    align-items: center;  
+    height: 2rem;
+    background-color: transparent;
+    border: none;
+    height: 2.5rem;
+    border-radius: 0.2rem;
+    font-weight: 600;
+    color: rgb(110, 110, 110);
+    img {
+        width: 1.8rem;
+        margin-right: 0.4rem;
+    }
+
+    &:hover {
+        background-color: #dddddd;
+        cursor: pointer;
+    }
+}
+
