@@ -1,10 +1,10 @@
-import './body.styles.scss'
+import './home.styles.scss'
 import CreatePost from '../../components/create-post/create-post.components';
 import CategoriesBar from '../../components/categories-bar/categories-bar.components';
 import Post from '../../components/post/post.components';
 import { placeholderData } from '../../utils/placeholder/data'
 
-const RouteBody = () => {
+const Home = () => {
   return (
     <div>
         <CreatePost />
@@ -29,4 +29,4 @@ const RouteBody = () => {
   )
 }
 
-export default RouteBody;
+export default Home;

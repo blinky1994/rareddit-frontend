@@ -43,6 +43,12 @@ const Post = ({title, user, time, postContent}) => {
            buttonType={BUTTON_TYPE_CLASSES.postAction}
            iconType={ICON_TYPE_CLASSES.award}
            >Award</Button>
+
+          {/* Share Button */}
+          <Button
+           buttonType={BUTTON_TYPE_CLASSES.postAction}
+           iconType={ICON_TYPE_CLASSES.share}
+           >Share</Button>
             
            
         </div>

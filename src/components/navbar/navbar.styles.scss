@@ -1,19 +1,21 @@
 .site-logo {
-    width: 100px;
+    width: 5rem;
 }
 
 .navbar-container {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    padding: 0.2rem;
 }
 
 .navbar-left-section {
-    width: 2rem;
+    margin-right: 2rem;
 }
 
 .navbar-center-section {
-    width: 40%;
-    margin: 0 auto;
+    width: 80%;
+    margin-right: 2rem;
 }
 
 .navbar-right-section {
