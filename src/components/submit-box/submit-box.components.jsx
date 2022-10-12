@@ -2,6 +2,9 @@ import './submit-box.styles.scss'
 import Button, { BUTTON_TYPE_CLASSES, ICON_TYPE_CLASSES } from '../button/button.component';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { PostsContext } from '../../context/posts.context';
+
 const defaultSubmitFields = {
   titleText: '',
   bodyText: '',
@@ -11,6 +14,8 @@ const SubmitBox = () => {
   const navigate = useNavigate();
   const [submitFields, setSubmitFields] = useState(defaultSubmitFields);
   const { titleText, bodyText } = submitFields;
+  const { setPosts } = useContext(PostsContext);
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -23,13 +28,24 @@ const SubmitBox = () => {
         alert('Please complete all fields');
         return;
       }
-
+      addNewPost();
       navigate('/');
   }
 
-  console.log('Title: ', titleText);
-  console.log('Body: ', bodyText);
-  
+  const addNewPost = () => {
+    const date = new Date();
+    console.log(date);
+    const newPost =     {
+      user : `User`,
+      date :  date,
+      timeFromDate: `13 hours`,
+      title : titleText,
+      content : bodyText,
+      noOfLikes: 0
+    }
+    setPosts(prevPost => [newPost, ...prevPost]);
+  }
+
   return (
     <div className='submit-box-container'>
         <div className='title-section'>

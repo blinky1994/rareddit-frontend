@@ -5,12 +5,12 @@ import ProfileIcon from '../profile-icon/profile-icon.components';
 import { Link } from "react-router-dom";
 import Button, { BUTTON_TYPE_CLASSES, ICON_TYPE_CLASSES } from '../button/button.component';
 
-const Post = ({title, user, time, postContent}) => {
+const Post = ({title, user, time, content, noOfLikes}) => {
   return (
     <div className='post-container'>
       <div className='upvote-section'>
         <img src={Upvote} alt='vote-icon' />
-        <span>12.3K</span>
+        <span>{noOfLikes}</span>
         <img src={Downvote} alt='vote-icon' />
       </div>
 
@@ -28,7 +28,7 @@ const Post = ({title, user, time, postContent}) => {
 
         <div className='post-content'>
           <h3>{title}</h3>
-            <p>{postContent}</p>
+            <p>{content}</p>
         </div>
 
         <div className='post-actions'>

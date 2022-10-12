@@ -9,7 +9,6 @@ const CreatePost = () => {
   const clickHandler = () => {
     navigate('/submit');
   }
-
   
   return (
     <div className='create-post-container'>
