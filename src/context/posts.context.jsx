@@ -1,7 +1,6 @@
 import { createContext } from "react";
 import { useState } from "react";
 import { existingPosts } from "../utils/placeholder/posts";
-
 export const PostsContext = createContext(existingPosts);
 
 export const PostsProvider = ({children}) => {

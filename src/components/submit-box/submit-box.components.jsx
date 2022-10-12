@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { PostsContext } from '../../context/posts.context';
+import moment from 'moment/moment';
+import { UserContext } from '../../context/user.context';
 
 const defaultSubmitFields = {
   titleText: '',
@@ -14,8 +16,8 @@ const SubmitBox = () => {
   const navigate = useNavigate();
   const [submitFields, setSubmitFields] = useState(defaultSubmitFields);
   const { titleText, bodyText } = submitFields;
-  const { setPosts } = useContext(PostsContext);
-
+  const { posts, setPosts } = useContext(PostsContext);
+  const { user } = useContext(UserContext);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -33,16 +35,17 @@ const SubmitBox = () => {
   }
 
   const addNewPost = () => {
-    const date = new Date();
-    console.log(date);
+    const dateTime = moment().format('MMMM Do YYYY, h:mm:ss a');
     const newPost =     {
-      user : `User`,
-      date :  date,
+      id: `post-${posts.length + 1}`,
+      user : user.userName,
+      dateTime :  dateTime,
       timeFromDate: `13 hours`,
       title : titleText,
       content : bodyText,
-      noOfLikes: 0
+      noOfLikes: 0,
     }
+    console.log(newPost);
     setPosts(prevPost => [newPost, ...prevPost]);
   }
 

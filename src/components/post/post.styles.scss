@@ -70,3 +70,11 @@
 .post-actions {
     display: flex;
 }
+
+.activated {
+    background-color: red;
+}
+
+.deactivated {
+    background-color: transparent;
+}
