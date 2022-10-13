@@ -1,11 +1,11 @@
-.post-container {
+.postpage-container {
     display: flex;
     padding: 0;
     border: solid 1px #c4c4c4;
     margin-bottom: 1rem;
     border-radius: 0.3rem;
 }
-.upvote-section {
+.postpage-upvote-section {
     width: 2rem;
     background-color: rgb(235, 235, 235);
     border-right: 1px solid #c4c4c4;
@@ -30,18 +30,12 @@
     }
 }
 
-.content-section {
+.postpage-content-section {
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
-
 }
-
-.navigation-allowed {
-    cursor: pointer;
-}
-
-.post-headers {
+.postpage-headers {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -53,7 +47,7 @@
     }
 }
 
-.post-content {
+.postpage-content {
     width: 100%;
 
     p {
@@ -73,11 +67,11 @@
     }
 }
 
-.post-actions {
+.postpage-actions {
     display: flex;
 }
 
-.activated {
+.postpage-activated {
     background-color: red;
 
     &:hover {
@@ -86,6 +80,6 @@
     }
 }
 
-.deactivated {
+.postpage-deactivated {
     background-color: transparent;
 }

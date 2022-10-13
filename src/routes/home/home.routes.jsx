@@ -22,6 +22,7 @@ const Home = () => {
             dateTime={moment(post.dateTime, 'MMMM Do YYYY, h:mm:ss a').fromNow()}
             content={post.content}
             noOfLikes={post.noOfLikes}
+            navigation={'navigation-allowed'}
             />
           })
         }

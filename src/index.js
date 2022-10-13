@@ -6,14 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { PostsProvider } from './context/posts.context';
 import { UserProvider } from './context/user.context';
-
+import { CommentsProvider } from './context/comments.context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
       <PostsProvider>
-        <UserProvider>
-          <App />
-        </UserProvider>
+        <CommentsProvider>
+          <UserProvider>
+            <App />
+          </UserProvider>
+        </CommentsProvider>
       </PostsProvider>
       </BrowserRouter>
 );

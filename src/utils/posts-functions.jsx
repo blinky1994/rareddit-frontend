@@ -103,3 +103,8 @@ const UpdatePostLikes = (posts, modifyPostID, noOfLikes) => {
     })
     return updatedPosts;
 }
+
+export const GetPostContent = (posts, postID) => {
+    const post =  posts.filter(post => post.postID === postID);
+    return post[0];
+}

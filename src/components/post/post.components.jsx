@@ -8,14 +8,18 @@ import { UserContext } from '../../context/user.context';
 import { useContext, useState } from 'react';
 import { handleUpvote, handleDownvote } from '../../utils/posts-functions';
 import { PostsContext } from '../../context/posts.context';
+import { useNavigate } from 'react-router-dom';
 
-const Post = ({postID, title, userName, dateTime, content, noOfLikes}) => {
+const Post = ({postID, title, userName, dateTime, content, noOfLikes, navigation}) => {
+  const navigate = useNavigate();
+
   const { user, setUser } = useContext(UserContext);
   const { posts, setPosts } = useContext(PostsContext);
   const [ upvoteEvent, setUpvoteEvent ] = useState();
   const [ downvoteEvent, setDownvoteEvent ] = useState();
   const [ lastVoteAction, setLastVoteAction ] = useState();
   const [ currentNoOfLikes ] = useState(noOfLikes);
+
 
   const postDetails = {
     postID, currentNoOfLikes,
@@ -34,6 +38,12 @@ const Post = ({postID, title, userName, dateTime, content, noOfLikes}) => {
     handleDownvote(event, postDetails);
   } 
 
+  const navigateHandler = () => {
+    if (navigation === 'navigation-allowed')
+     navigate(`/${postID}`)
+  }
+
+
   return (
     <div className='post-container'>
       <div className='upvote-section'>
@@ -43,7 +53,6 @@ const Post = ({postID, title, userName, dateTime, content, noOfLikes}) => {
       </div>
 
       <div className='content-section'>
-
         <div className='post-headers'>
             <ProfileIcon />
             <Link>
@@ -53,12 +62,12 @@ const Post = ({postID, title, userName, dateTime, content, noOfLikes}) => {
               <span>Posted by <Link>{userName}</Link> {dateTime} </span>
 
         </div>
-
+        <div className={`${navigation}`} onClick={navigateHandler}>
         <div className='post-content'>
           <h3>{title}</h3>
             <p>{content}</p>
         </div>
-
+        </div>
         <div className='post-actions'>
           {/* Comment Button */}
           <Button
