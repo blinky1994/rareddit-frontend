@@ -73,6 +73,11 @@
 
 .activated {
     background-color: red;
+
+    &:hover {
+        background-color: #ff0000;
+        border-radius: 0.2rem;
+    }
 }
 
 .deactivated {

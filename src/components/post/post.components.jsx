@@ -6,78 +6,77 @@ import { Link } from "react-router-dom";
 import Button, { BUTTON_TYPE_CLASSES, ICON_TYPE_CLASSES } from '../button/button.component';
 import { UserContext } from '../../context/user.context';
 import { useContext, useState } from 'react';
-import { UpvotePost, DownvotePost } from '../../utils/posts-functions';
+import { UpdatePostLikes } from '../../utils/posts-functions';
 import { PostsContext } from '../../context/posts.context';
 
 const Post = ({postID, title, userName, dateTime, content, noOfLikes}) => {
   const { user, setUser } = useContext(UserContext);
   const { posts, setPosts } = useContext(PostsContext);
+  const [ currentNoOfLikes ] = useState(noOfLikes);
   const [ upvoteEvent, setUpvoteEvent ] = useState();
   const [ downvoteEvent, setDownvoteEvent ] = useState();
-  
+  const [ lastVoteAction, setLastVoteAction ] = useState();
+
   const handleUpvote = (event) => {
     setUpvoteEvent(event);
     if (checkIfUserHasLiked(postID)) {
-      if (checkLastAction(postID) === 'downvote' + postID){
-        setPosts(UpvotePost(posts, postID));
-        unregisterLike(posts, postID)
-        event.target.className = 'deactivated';
+      if (lastVoteAction === 'downvote'){
+        setPosts(UpdatePostLikes(posts, postID, currentNoOfLikes + 1));
+        event.target.className = 'activated';
         downvoteEvent.target.className='deactivated';
       } else {
-        setPosts(DownvotePost(posts, postID));
-        unregisterLike(posts, postID);
+        setPosts(UpdatePostLikes(posts, postID, currentNoOfLikes));
         event.target.className = 'deactivated';
+        unregisterLike(postID);
       }
+      updateUser(postID, 'upvote');
+      setLastVoteAction('upvote');
       return;
     };
-    setPosts(UpvotePost(posts, postID));
+    setPosts(UpdatePostLikes(posts, postID, currentNoOfLikes + 1));
+    updateUser(postID, 'upvote');
+    setLastVoteAction('upvote');
     event.target.className = 'activated';
-    updateUser('upvote');
   }
 
   const handleDownvote = (event) => {
     setDownvoteEvent(event);
     if (checkIfUserHasLiked(postID)) {
-      if (checkLastAction(postID) === 'upvote' + postID){
-        setPosts(DownvotePost(posts, postID));
-        unregisterLike(posts, postID)
-        event.target.className = 'deactivated';
+      if (lastVoteAction === 'upvote'){
+        setPosts(UpdatePostLikes(posts, postID, currentNoOfLikes - 1));
+        event.target.className = 'activated';
         upvoteEvent.target.className='deactivated';
       } else {
-        setPosts(UpvotePost(posts, postID));
-        unregisterLike(posts, postID)
+        setPosts(UpdatePostLikes(posts, postID, currentNoOfLikes));
         event.target.className = 'deactivated';
+        unregisterLike(postID)
       }
-      upvoteEvent.target.className='deactivated';
+      updateUser(postID, 'downvote');
+      setLastVoteAction('downvote');
       return;
     };
-    setPosts(DownvotePost(posts, postID));
+    setPosts(UpdatePostLikes(posts, postID, currentNoOfLikes - 1));
     event.target.className = 'activated';
-    updateUser('downvote');
+    updateUser(postID, 'downvote');
+    setLastVoteAction('downvote');
   }
 
-  const updateUser = (voteType) => {
+  const updateUser = (postID, voteType) => {
+    if (user.likedPosts.includes(postID)){
+      return;
+    }
     setUser({...user, 
-             likedPosts: [...user.likedPosts, postID],
-             likedPostsType: [...user.likedPostsType, voteType + postID]
-            });
+      likedPosts: [...user.likedPosts, postID],
+      likedPostsType: [...user.likedPostsType, voteType + postID]
+     });
   }
 
   const checkIfUserHasLiked = (postID) => {
     return user.likedPosts.includes(postID) ? true: false;
   }
 
-  const checkLastAction = (postID) => {
-    let likedPostType = '';
-    user.likedPosts.forEach((oldPostID, index) => {
-      if (oldPostID === postID) {
-        likedPostType = user.likedPostsType[index];
-      }
-    })
-    return likedPostType;
-  }
-
-  const unregisterLike = (posts, postID) => {
+  const unregisterLike = (postID) => {
+    console.log('unregistered');
     user.likedPosts.forEach((oldPostID, index) => {
       if (oldPostID === postID)
       {
@@ -93,7 +92,6 @@ const Post = ({postID, title, userName, dateTime, content, noOfLikes}) => {
       }
     })
   }
-
 
   return (
     <div className='post-container'>
