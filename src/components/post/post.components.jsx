@@ -6,7 +6,13 @@ import { Link } from "react-router-dom";
 import Button, { BUTTON_TYPE_CLASSES, ICON_TYPE_CLASSES } from '../button/button.component';
 import { UserContext } from '../../context/user.context';
 import { useContext, useState } from 'react';
-import { handlePostUpvote, handlePostDownvote } from '../../utils/posts-functions';
+import { 
+  handlePostUpvote,
+  handlePostDownvote, 
+  getUpVoteButtonClassName, 
+  getDownVoteButtonClassName,
+  initializePostLikesCheck
+} from '../../utils/posts-functions';
 import { PostsContext } from '../../context/posts.context';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,25 +21,27 @@ const Post = ({postID, title, userName, dateTime, content, noOfLikes, navigation
 
   const { user, setUser } = useContext(UserContext);
   const { posts, setPosts } = useContext(PostsContext);
-  const [ upvoteEvent, setUpvoteEvent ] = useState();
-  const [ downvoteEvent, setDownvoteEvent ] = useState();
-  const [ postLikes ] = useState(noOfLikes);
+  const [ postLikes, setPostLikes ] = useState(noOfLikes);
+  const [ renderOnce, setRenderOnce ] = useState(false);
   
-  console.log(user.likedPosts);
   const postDetails = {
     postID, postLikes,
     user, setUser,
     posts, setPosts,
-    upvoteEvent, setUpvoteEvent,
-    downvoteEvent, setDownvoteEvent
+    setPostLikes
   }
 
-  const localHandleUpvote = (event) => {
-    handlePostUpvote(event, postDetails);
+  if (!renderOnce) {
+      initializePostLikesCheck(postDetails);
+      setRenderOnce(true);
+  }
+  
+  const localHandleUpvote = () => {
+    handlePostUpvote(postDetails);
   } 
 
-  const localHandleDownvote = (event) => {
-    handlePostDownvote(event, postDetails);
+  const localHandleDownvote = () => {
+    handlePostDownvote(postDetails);
   } 
 
   const navigateHandler = () => {
@@ -45,9 +53,9 @@ const Post = ({postID, title, userName, dateTime, content, noOfLikes, navigation
   return (
     <div className='post-container'>
       <div className='upvote-section'>
-        <img id='upvote' src={Upvote} alt='vote-icon' onClick={localHandleUpvote} className='deactivated' />
+        <img id='upvote' src={Upvote} alt='vote-icon' onClick={localHandleUpvote} className={getUpVoteButtonClassName(postID, user)} />
         <span>{noOfLikes}</span>
-        <img id='downvote' src={Downvote} alt='vote-icon' onClick={localHandleDownvote} className='deactivated'/>
+        <img id='downvote' src={Downvote} alt='vote-icon' onClick={localHandleDownvote} className={getDownVoteButtonClassName(postID, user)}/>
       </div>
 
       <div className='content-section'>

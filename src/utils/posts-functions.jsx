@@ -1,26 +1,59 @@
-export const handlePostUpvote = (event, postDetails) => {
+export const initializePostLikesCheck = (postDetails) => {
+  const {postID, user, postLikes, setPostLikes} = postDetails;
+  
+  if (checkIfUserHasLiked(postID, user) === 'upvote') {
+    setPostLikes(postLikes - 1);
+  }
+  else if (checkIfUserHasLiked(postID, user) === 'downvote') {
+    setPostLikes(postLikes + 1);
+  }
+}
+
+export const getUpVoteButtonClassName = (postID, user) => {
+  let className = '';
+  user.likedPosts.forEach((likedPost, index) => {
+    if (likedPost.includes(postID)){
+      if (likedPost[1] === 'upvote'){
+        className = 'activated';
+      }
+      if (likedPost[1] === 'downvote'){
+        className = 'deactivated';
+      }
+    }
+  });
+  return className;
+}
+
+export const getDownVoteButtonClassName = (postID, user) => {
+  let className = '';
+  user.likedPosts.forEach((likedPost, index) => {
+    if (likedPost.includes(postID)){
+      if (likedPost[1] === 'upvote'){
+        className = 'deactivated';
+      }
+      if (likedPost[1] === 'downvote'){
+        className = 'activated';
+      }
+    }
+  });
+  return className;
+}
+
+export const handlePostUpvote = (postDetails) => {
     const {
       postID, postLikes,
       user, setUser,
       posts, setPosts,
-      setUpvoteEvent,
-      downvoteEvent
     } = postDetails;
-
-    setUpvoteEvent(event);
-
     if (checkIfUserHasLiked(postID, user) === 'downvote') {
       console.log('a');
       setPosts(UpdatePostLikes(posts, postID, postLikes + 1));
-      event.target.className = 'activated';
-      downvoteEvent.target.className='deactivated';
       updateUser(postID, 'upvote', user, setUser);
     }
 
     else if (checkIfUserHasLiked(postID, user) === 'upvote') {
       console.log('b');
       setPosts(UpdatePostLikes(posts, postID, postLikes));
-      event.target.className = 'deactivated';
       unregisterLike(postID, user, setUser);
     }
 
@@ -28,40 +61,31 @@ export const handlePostUpvote = (event, postDetails) => {
       console.log('c');
       setPosts(UpdatePostLikes(posts, postID, postLikes + 1));
       updateUser(postID, 'upvote', user, setUser);
-      event.target.className = 'activated';
     }
   }
 
-  export const handlePostDownvote = (event, postDetails) => {
+  export const handlePostDownvote = (postDetails) => {
     const {
       postID, postLikes,
       user, setUser,
       posts, setPosts,
-      upvoteEvent,
-      setDownvoteEvent
     } = postDetails;
-
-    setDownvoteEvent(event);
 
     if (checkIfUserHasLiked(postID, user) === 'upvote') {
       console.log('d');      
       setPosts(UpdatePostLikes(posts, postID, postLikes - 1));
-      event.target.className = 'activated';
-      upvoteEvent.target.className='deactivated';
       updateUser(postID, 'downvote', user, setUser);
     }
 
     else if (checkIfUserHasLiked(postID, user) === 'downvote') {
       console.log('e');
       setPosts(UpdatePostLikes(posts, postID, postLikes));
-      event.target.className = 'deactivated';
       unregisterLike(postID,user,setUser)
     }
 
     else {
       console.log('f');
       setPosts(UpdatePostLikes(posts, postID, postLikes - 1));
-      event.target.className = 'activated';
       updateUser(postID, 'downvote', user, setUser);
     }
   }

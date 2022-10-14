@@ -37,7 +37,7 @@ const SubmitBox = () => {
   const addNewPost = () => {
     const dateTime = moment().format('MMMM Do YYYY, h:mm:ss a');
     const newPost =     {
-      id: `post-${posts.length + 1}`,
+      postID: `post-${posts.length + 1}`,
       user : user.userName,
       dateTime :  dateTime,
       timeFromDate: `13 hours`,
