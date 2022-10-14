@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Button, { BUTTON_TYPE_CLASSES, ICON_TYPE_CLASSES } from '../button/button.component';
 import { UserContext } from '../../context/user.context';
 import { useContext, useState } from 'react';
-import { handleUpvote, handleDownvote } from '../../utils/posts-functions';
+import { handlePostUpvote, handlePostDownvote } from '../../utils/posts-functions';
 import { PostsContext } from '../../context/posts.context';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,25 +17,23 @@ const Post = ({postID, title, userName, dateTime, content, noOfLikes, navigation
   const { posts, setPosts } = useContext(PostsContext);
   const [ upvoteEvent, setUpvoteEvent ] = useState();
   const [ downvoteEvent, setDownvoteEvent ] = useState();
-  const [ lastVoteAction, setLastVoteAction ] = useState();
-  const [ currentNoOfLikes ] = useState(noOfLikes);
-
-
+  const [ postLikes ] = useState(noOfLikes);
+  
+  console.log(user.likedPosts);
   const postDetails = {
-    postID, currentNoOfLikes,
+    postID, postLikes,
     user, setUser,
     posts, setPosts,
     upvoteEvent, setUpvoteEvent,
-    downvoteEvent, setDownvoteEvent,
-    lastVoteAction, setLastVoteAction
+    downvoteEvent, setDownvoteEvent
   }
 
   const localHandleUpvote = (event) => {
-    handleUpvote(event, postDetails);
+    handlePostUpvote(event, postDetails);
   } 
 
   const localHandleDownvote = (event) => {
-    handleDownvote(event, postDetails);
+    handlePostDownvote(event, postDetails);
   } 
 
   const navigateHandler = () => {

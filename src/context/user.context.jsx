@@ -27,14 +27,13 @@ const RandomName = () => {
 
 const defaultUser = {
     userName: '',
-    likedPosts: [],
-    likedPostsType: []
+    likedPosts: [['','']]
 }
 
 export const UserContext = createContext(defaultUser);
 
 export const UserProvider = ({children}) => {
-    const currentUser = { userName: RandomName(), likedPosts: [], likedPostsType: []};
+    const currentUser = { userName: RandomName(), likedPosts: []};
     const [user, setUser] = useState(currentUser);
     const value = { user, setUser };
     

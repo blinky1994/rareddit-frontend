@@ -1,98 +1,113 @@
-export const handleUpvote = (event, postDetails) => {
+export const handlePostUpvote = (event, postDetails) => {
     const {
-      postID, currentNoOfLikes,
+      postID, postLikes,
       user, setUser,
       posts, setPosts,
       setUpvoteEvent,
-      downvoteEvent,
-      lastVoteAction, setLastVoteAction
+      downvoteEvent
     } = postDetails;
 
     setUpvoteEvent(event);
-    if (checkIfUserHasLiked(postID, user)) {
-      if (lastVoteAction === 'downvote'){
-        setPosts(UpdatePostLikes(posts, postID, currentNoOfLikes + 1));
-        event.target.className = 'activated';
-        downvoteEvent.target.className='deactivated';
-      } else {
-        setPosts(UpdatePostLikes(posts, postID, currentNoOfLikes));
-        event.target.className = 'deactivated';
-        unregisterLike(postID, user, setUser);
-      }
+
+    if (checkIfUserHasLiked(postID, user) === 'downvote') {
+      console.log('a');
+      setPosts(UpdatePostLikes(posts, postID, postLikes + 1));
+      event.target.className = 'activated';
+      downvoteEvent.target.className='deactivated';
       updateUser(postID, 'upvote', user, setUser);
-      setLastVoteAction('upvote');
-      return;
-    };
-    setPosts(UpdatePostLikes(posts, postID, currentNoOfLikes + 1));
-    updateUser(postID, 'upvote', user, setUser);
-    setLastVoteAction('upvote');
-    event.target.className = 'activated';
+    }
+
+    else if (checkIfUserHasLiked(postID, user) === 'upvote') {
+      console.log('b');
+      setPosts(UpdatePostLikes(posts, postID, postLikes));
+      event.target.className = 'deactivated';
+      unregisterLike(postID, user, setUser);
+    }
+
+    else {
+      console.log('c');
+      setPosts(UpdatePostLikes(posts, postID, postLikes + 1));
+      updateUser(postID, 'upvote', user, setUser);
+      event.target.className = 'activated';
+    }
   }
 
-  export const handleDownvote = (event, postDetails) => {
+  export const handlePostDownvote = (event, postDetails) => {
     const {
-      postID, currentNoOfLikes,
+      postID, postLikes,
       user, setUser,
       posts, setPosts,
       upvoteEvent,
-      setDownvoteEvent,
-      lastVoteAction, setLastVoteAction
+      setDownvoteEvent
     } = postDetails;
 
     setDownvoteEvent(event);
-    if (checkIfUserHasLiked(postID, user)) {
-      if (lastVoteAction === 'upvote'){
-        setPosts(UpdatePostLikes(posts, postID, currentNoOfLikes - 1));
-        event.target.className = 'activated';
-        upvoteEvent.target.className='deactivated';
-      } else {
-        setPosts(UpdatePostLikes(posts, postID, currentNoOfLikes));
-        event.target.className = 'deactivated';
-        unregisterLike(postID,user,setUser)
-      }
+
+    if (checkIfUserHasLiked(postID, user) === 'upvote') {
+      console.log('d');      
+      setPosts(UpdatePostLikes(posts, postID, postLikes - 1));
+      event.target.className = 'activated';
+      upvoteEvent.target.className='deactivated';
       updateUser(postID, 'downvote', user, setUser);
-      setLastVoteAction('downvote');
-      return;
-    };
-    setPosts(UpdatePostLikes(posts, postID, currentNoOfLikes - 1));
-    event.target.className = 'activated';
-    updateUser(postID, 'downvote', user, setUser);
-    setLastVoteAction('downvote');
+    }
+
+    else if (checkIfUserHasLiked(postID, user) === 'downvote') {
+      console.log('e');
+      setPosts(UpdatePostLikes(posts, postID, postLikes));
+      event.target.className = 'deactivated';
+      unregisterLike(postID,user,setUser)
+    }
+
+    else {
+      console.log('f');
+      setPosts(UpdatePostLikes(posts, postID, postLikes - 1));
+      event.target.className = 'activated';
+      updateUser(postID, 'downvote', user, setUser);
+    }
   }
 
   const updateUser = (postID, voteType, user, setUser) => {
-    if (user.likedPosts.includes(postID)){
-      return;
-    }
+    let checkPostExist = false;
+    
+    const newLikedPosts = user.likedPosts.map((likedPost, index) => {
+      if (likedPost.includes(postID)){
+        checkPostExist = true;
+        return Object.assign([], [postID, voteType]);
+      }
+      return likedPost;
+    });
+
+    setUser({...user, likedPosts: newLikedPosts});
+    if (checkPostExist) return;
+
     setUser({...user, 
-      likedPosts: [...user.likedPosts, postID],
-      likedPostsType: [...user.likedPostsType, voteType + postID]
+      likedPosts: [...user.likedPosts, [postID, voteType]]
      });
   }
 
   const checkIfUserHasLiked = (postID, user) => {
-    return user.likedPosts.includes(postID) ? true: false;
+    let voteType = null;
+     user.likedPosts.forEach(likedPost => {
+      if (likedPost.includes(postID)){
+        voteType = likedPost[1];
+      }
+    });
+    return voteType;
   }
 
   const unregisterLike = (postID, user, setUser) => {
-    user.likedPosts.forEach((oldPostID, index) => {
-      if (oldPostID === postID)
-      {
+    user.likedPosts.forEach((likedPost, index) => {
+      if (likedPost[0] === postID) {
         setUser(
           {...user, 
             likedPosts: 
-            user.likedPosts.filter(oldPostID => oldPostID !== postID),
-
-            likedPostsType: 
-            user.likedPostsType.filter
-            (oldVoteID => oldVoteID !== user.likedPostsType[index]),
+            user.likedPosts.filter(likedPost => likedPost[0] !== postID),
           })
       }
     })
   }
 
 const UpdatePostLikes = (posts, modifyPostID, noOfLikes) => {
-    console.log(noOfLikes);
     const updatedPosts = posts.map(post => {
         if (post.postID === modifyPostID){
             const newObj = 

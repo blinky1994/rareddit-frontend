@@ -2,17 +2,18 @@ import Upvote from '../../../assets/arrow-up-bold.svg';
 import Downvote from '../../../assets/arrow-down-bold.svg';
 import ProfileIcon from '../../profile-icon/profile-icon.components';
 import './comment.styles.scss'
-import { handleUpvote, handleDownvote } from '../../../utils/posts-functions';
+import { handleCommentUpvote, handleCommentDownvote } from '../../../utils/comments-functions'
 import Button, { BUTTON_TYPE_CLASSES, ICON_TYPE_CLASSES } from '../../button/button.component';
 import { Link } from 'react-router-dom';
 
-const postDetails = {};
+const commentDetails = {};
+
 const localHandleUpvote = (event) => {
-    handleUpvote(event, postDetails);
+    handleCommentUpvote(event, commentDetails);
   } 
 
   const localHandleDownvote = (event) => {
-    handleDownvote(event, postDetails);
+    handleCommentDownvote(event, commentDetails);
   } 
 
 const Comment = 
@@ -26,7 +27,7 @@ const Comment =
     <div className="comment-container">
         {
             objs.map((obj, index) => (           
-            <div>
+            <div key={index}>
                 <div className="comment-line-box">
                     <div className="comment-line" />
                 </div>
