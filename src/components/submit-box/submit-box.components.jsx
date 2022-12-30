@@ -45,7 +45,6 @@ const SubmitBox = () => {
       content : bodyText,
       noOfLikes: 0,
     }
-    console.log(newPost);
     setPosts(prevPost => [newPost, ...prevPost]);
   }
 

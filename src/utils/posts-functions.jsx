@@ -46,19 +46,16 @@ export const handlePostUpvote = (postDetails) => {
       posts, setPosts,
     } = postDetails;
     if (checkIfUserHasLiked(postID, user) === 'downvote') {
-      console.log('a');
       setPosts(UpdatePostLikes(posts, postID, postLikes + 1));
       updateUser(postID, 'upvote', user, setUser);
     }
 
     else if (checkIfUserHasLiked(postID, user) === 'upvote') {
-      console.log('b');
       setPosts(UpdatePostLikes(posts, postID, postLikes));
       unregisterLike(postID, user, setUser);
     }
 
     else {
-      console.log('c');
       setPosts(UpdatePostLikes(posts, postID, postLikes + 1));
       updateUser(postID, 'upvote', user, setUser);
     }
@@ -71,20 +68,17 @@ export const handlePostUpvote = (postDetails) => {
       posts, setPosts,
     } = postDetails;
 
-    if (checkIfUserHasLiked(postID, user) === 'upvote') {
-      console.log('d');      
+    if (checkIfUserHasLiked(postID, user) === 'upvote') {   
       setPosts(UpdatePostLikes(posts, postID, postLikes - 1));
       updateUser(postID, 'downvote', user, setUser);
     }
 
     else if (checkIfUserHasLiked(postID, user) === 'downvote') {
-      console.log('e');
       setPosts(UpdatePostLikes(posts, postID, postLikes));
       unregisterLike(postID,user,setUser)
     }
 
     else {
-      console.log('f');
       setPosts(UpdatePostLikes(posts, postID, postLikes - 1));
       updateUser(postID, 'downvote', user, setUser);
     }

@@ -4,6 +4,10 @@
     border: solid 1px #c4c4c4;
     margin-bottom: 1rem;
     border-radius: 0.3rem;
+
+    &:hover {
+        background-color: rgb(238, 238, 238);
+    }
 }
 .upvote-section {
     width: 2rem;

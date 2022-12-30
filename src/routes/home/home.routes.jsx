@@ -23,6 +23,7 @@ const Home = () => {
             content={post.content}
             noOfLikes={post.noOfLikes}
             navigation={'navigation-allowed'}
+            isHomePage={true}
             />
           })
         }

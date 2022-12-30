@@ -19,7 +19,7 @@ export const existingComments = [
       postID: `post-1`,
       userName : `blue-ocean`,
       dateTime: `September 10th 2022, 3:26:17 pm`,
-      content : `Yeh bruh what is this shet lol`,
+      content : `I would recommend to narrow down your preferred field of interest. Just like how there are different types of doctors, programming has different areas each with their own niche. Each of those fields requires different programming languages. You should first determine your area of interest and then find which programming language is best suited for that area.`,
       noOfLikes: 2,
       hierarchyLevel: 0
     },
@@ -27,7 +27,7 @@ export const existingComments = [
       postID: `post-1`,
       userName : `friendly-folk`,
       dateTime: `September 10th 2022, 3:26:17 pm`,
-      content : `derp.`,
+      content : `Rust, Scala or Solidity I've heard.`,
       noOfLikes: 2,
       hierarchyLevel: 1
     },
@@ -35,24 +35,8 @@ export const existingComments = [
       postID: `post-1`,
       userName : `glam-oyster`,
       dateTime: `October 12th 2022, 5:26:17 pm`,
-      content : `your mama?`,
+      content : `lol what, 95% mobile vacancies are for reactnative/ts. Flutter is tens of miles behind react in terms of job opportunities?`,
       noOfLikes: 2,
       hierarchyLevel: 2
-    },
-    {
-      postID: `post-1`,
-      userName : `red-dog`,
-      dateTime: `October 9th 2022, 5:26:17 pm`,
-      content : `Get out dawg`,
-      noOfLikes: 2,
-      hierarchyLevel: 3
-    },
-    {
-      postID: `post-1`,
-      userName : `red-dog`,
-      dateTime: `October 9th 2022, 5:26:17 pm`,
-      content : `This place too high for me lmao`,
-      noOfLikes: 2,
-      hierarchyLevel: 2
-    },
+    }
   ]

@@ -16,9 +16,8 @@ import {
 import { PostsContext } from '../../context/posts.context';
 import { useNavigate } from 'react-router-dom';
 
-const Post = ({postID, title, userName, dateTime, content, noOfLikes, navigation}) => {
+const Post = ({postID, title, userName, dateTime, content, noOfLikes, navigation, isHomePage}) => {
   const navigate = useNavigate();
-
   const { user, setUser } = useContext(UserContext);
   const { posts, setPosts } = useContext(PostsContext);
   const [ postLikes, setPostLikes ] = useState(noOfLikes);
@@ -30,6 +29,14 @@ const Post = ({postID, title, userName, dateTime, content, noOfLikes, navigation
     posts, setPosts,
     setPostLikes
   }
+
+  if (isHomePage) {
+    if (content.length > 550) {
+      content = content.slice(0, 550);
+      content += '...';
+    }
+  }
+
 
   if (!renderOnce) {
       initializePostLikesCheck(postDetails);

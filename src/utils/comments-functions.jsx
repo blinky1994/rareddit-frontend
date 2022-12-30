@@ -92,7 +92,6 @@ export const handleCommentUpvote = (event, commentDetails) => {
   }
 
 const UpdatePostLikes = (posts, modifyPostID, noOfLikes) => {
-    console.log(noOfLikes);
     const updatedPosts = posts.map(post => {
         if (post.postID === modifyPostID){
             const newObj = 
